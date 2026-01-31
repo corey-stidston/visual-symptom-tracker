@@ -1,10 +1,11 @@
 <h1>Symptoms</h1>
 
 <div id="symptoms">
-    <%= link_to "New symptom", new_symptom_path %>
-    <% @symptoms.each do |symptom| %>
-        <div>
-        <%= link_to symptom.name, symptom_path(symptom.id) %>
-        </div>
-    <% end %>
+  <%= link_to "New symptom", new_symptom_path %>
+  <% @symptoms.each do |symptom| %>
+    <div>
+      <%= link_to symptom.name, symptom_path(symptom.id) %>
+    </div>
+  <% end %>
+  <%= link_to "Back", root_path %>
 </div>
