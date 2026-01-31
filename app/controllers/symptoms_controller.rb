@@ -20,6 +20,25 @@ class SymptomsController < ApplicationController
     end
   end
 
+  def edit
+    @symptom = Symptom.find(params[:id])
+  end
+
+  def update
+    @symptom = Symptom.find(params[:id])
+    if @symptom.update(symptom_params)
+      redirect_to @symptom
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @symptom = Symptom.find(params[:id])
+    @symptom.destroy
+    redirect_to symptoms_path
+  end
+
   private
     def symptom_params
       params.expect(symptom: [ :name ])
