@@ -1,6 +1,6 @@
 <%= form_with model: symptom, class: "space-y-6 max-w-md mx-auto" do |form| %>
   <% if form.object.errors.any? %>
-    <p class="error"><%= form.object.errors.full_messages.first %></p>
+    <p class="error text-red-600"><%= form.object.errors.full_messages.first %></p>
   <% end %>
 
   <div>
@@ -11,6 +11,16 @@
   <div>
     <%= form.label :observation, class: "block mb-2" %>
     <%= form.text_area :observation, rows: 4, class: "w-full border border-gray-300 rounded px-3 py-2"%>
+  </div>
+
+  <div>
+    <%= form.label "From", class: "block mb-2" %>
+    <%= form.datetime_select :observed_from, class: "w-full border border-gray-300 rounded px-3 py-2"%>
+  </div>
+
+  <div>
+    <%= form.label "To", class: "block mb-2" %>
+    <%= form.datetime_select :observed_to, class: "w-full border border-gray-300 rounded px-3 py-2"%>
   </div>
 
   <div class="flex items-center gap-4">

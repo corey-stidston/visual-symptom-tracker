@@ -25,7 +25,7 @@ class SymptomsController < ApplicationController
     if @symptom.update(symptom_params)
       redirect_to root_path
     else
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -37,6 +37,13 @@ class SymptomsController < ApplicationController
 
   private
     def symptom_params
-      params.expect(symptom: [ :name, :observation ])
+      params.require(:symptom).permit(
+        :name,
+        :observation,
+        :observed_from,
+        :observed_to,
+        "observed_from(1i)", "observed_from(2i)", "observed_from(3i)", "observed_from(4i)", "observed_from(5i)",
+        "observed_to(1i)", "observed_to(2i)", "observed_to(3i)", "observed_to(4i)", "observed_to(5i)"
+      )
     end
 end
