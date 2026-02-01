@@ -23,7 +23,7 @@ class SymptomsController < ApplicationController
   def update
     @symptom = Symptom.find(params[:id])
     if @symptom.update(symptom_params)
-      redirect_to @symptom
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,6 +37,6 @@ class SymptomsController < ApplicationController
 
   private
     def symptom_params
-      params.expect(symptom: [ :name ])
+      params.expect(symptom: [ :name, :observation ])
     end
 end

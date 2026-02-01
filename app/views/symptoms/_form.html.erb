@@ -3,9 +3,14 @@
     <p class="error"><%= form.object.errors.full_messages.first %></p>
   <% end %>
 
-  <div class="flex items-center gap-4">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "flex-1 border border-gray-300 rounded px-3 py-2"%>
+  <div>
+    <%= form.label :name, class: "block mb-2" %>
+    <%= form.text_field :name, class: "w-full border border-gray-300 rounded px-3 py-2"%>
+  </div>
+
+  <div>
+    <%= form.label :observation, class: "block mb-2" %>
+    <%= form.text_area :observation, rows: 4, class: "w-full border border-gray-300 rounded px-3 py-2"%>
   </div>
 
   <div class="flex items-center gap-4">
