@@ -1,6 +1,0 @@
-<%# app/views/symptoms/show.html.erb %>
-<h1><%= @symptom.name %></h1>
-
-<%= link_to "Back", symptoms_path %>
-<%= link_to "Edit", edit_symptom_path(@symptom) %>
-<%= button_to "Delete", @destroy, method: :delete, data: { turbo_confirm: "Are you sure?" } %>

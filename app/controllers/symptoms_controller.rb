@@ -3,10 +3,6 @@ class SymptomsController < ApplicationController
     @symptoms = Symptom.all
   end
 
-  def show
-    @symptom = Symptom.find(params[:id])
-  end
-
   def new
     @symptom = Symptom.new
   end
@@ -14,7 +10,7 @@ class SymptomsController < ApplicationController
   def create
     @symptom = Symptom.new(symptom_params)
     if @symptom.save
-      redirect_to @symptom
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,7 +32,7 @@ class SymptomsController < ApplicationController
   def destroy
     @symptom = Symptom.find(params[:id])
     @symptom.destroy
-    redirect_to symptoms_path
+    redirect_to root_path
   end
 
   private
