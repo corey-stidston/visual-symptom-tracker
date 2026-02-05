@@ -1,8 +1,10 @@
-<div>
+<div class="w-full">
   <h1 class="text-3xl font-bold mb-4">Visual Symptom Tracker</h1>
 
   <%= render "chart/index" %>
 
-  <h2 class="text-2xl font-semibold mb-2">Symptoms List</h2>
-  <%= render "symptoms/index" %>
+  <div class="flex gap-8">
+    <%= render "problems/index" %>
+    
+  </div>
 </div>

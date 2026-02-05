@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @symptoms = Symptom.all
+    @problems = Problem.all
   end
 end
