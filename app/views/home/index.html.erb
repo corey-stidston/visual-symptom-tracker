@@ -1,10 +1,11 @@
-<div class="w-full">
+<div class="w-full flex flex-col gap-8">
   <h1 class="text-3xl font-bold mb-4">Visual Symptom Tracker</h1>
 
   <%= render "chart/index" %>
 
   <div class="flex gap-8">
     <%= render "problems/index" %>
-    
+
+    <%= render "problems/index" %> <!-- TODO: Replace with observation -->
   </div>
 </div>
