@@ -21,6 +21,16 @@
     <%= form.datetime_field :observed, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": observation.errors[:observed].none?, "border-red-400 focus:outline-red-600": observation.errors[:observed].any?}] %>
   </div>
 
+  <div class="my-5">
+    <%= form.label :score %>
+    <%= form.select :score, (1..10).map { |n| [n, n] }, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": observation.errors[:score].none?, "border-red-400 focus:outline-red-600": observation.errors[:score].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :problem_id, "Problem" %>
+    <%= form.collection_select :problem_id, Problem.all, :id, :name, { include_blank: true }, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": observation.errors[:problem_id].none?, "border-red-400 focus:outline-red-600": observation.errors[:problem_id].any?}] %>
+  </div>
+
   <div class="inline">
     <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
   </div>

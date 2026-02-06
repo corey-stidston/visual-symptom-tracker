@@ -65,6 +65,6 @@ class ObservationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def observation_params
-      params.expect(observation: [ :name, :observed ])
+      params.expect(observation: [ :name, :observed, :score, :problem_id ])
     end
 end
