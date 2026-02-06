@@ -22,14 +22,18 @@ class ProblemsController < ApplicationController
   # POST /problems or /problems.json
   def create
     @problem = Problem.new(problem_params)
+    @observation = Observation.new(name: "Initial observation", observed: Time.current, problem: @problem)
 
     respond_to do |format|
-      if @problem.save
-        format.html { redirect_to @problem, notice: "Problem was successfully created." }
-        format.json { render :show, status: :created, location: @problem }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @problem.errors, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        saved = @problem.save && @observation.save
+        if saved
+          format.html { redirect_to @problem, notice: "Problem was successfully created." }
+          format.json { render :show, status: :created, location: @problem }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @problem.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

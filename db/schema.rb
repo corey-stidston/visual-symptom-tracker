@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_06_000813) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_06_001007) do
   create_table "observations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "observed"
+    t.integer "problem_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_observations_on_problem_id"
   end
 
   create_table "problems", force: :cascade do |t|
@@ -24,4 +26,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_06_000813) do
     t.string "name"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "observations", "problems"
 end
