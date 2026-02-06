@@ -5,7 +5,7 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <%= line_chart [["2025-01-01T00:00:00", 2], ["2025-01-01T12:00:00", 4], ["2025-01-02T00:00:00", 3]] %>
+  <%= line_chart @chart_data %>
 
   <div class="flex gap-8">
     <%= render "problems/index" %>
