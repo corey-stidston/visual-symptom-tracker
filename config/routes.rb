@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :observations
   resources :problems
-  get "chart/index"
+
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
