@@ -1,1 +1,49 @@
 @import "tailwindcss";
+
+@layer base {
+    :root {
+        color-scheme: light;
+    }
+
+    html {
+        font-family: "Space Grotesk", "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    body {
+        background-color: #f6f1e8;
+    }
+}
+
+@layer utilities {
+    .font-display {
+        font-family: "Newsreader", "Palatino", "Times New Roman", serif;
+    }
+
+    .bg-sand {
+        background-color: #f6f1e8;
+    }
+
+    .bg-ink {
+        background-color: #1f2937;
+    }
+
+    .bg-sun {
+        background-color: #fbbf24;
+    }
+
+    .bg-foam {
+        background-color: #a7f3d0;
+    }
+
+    .bg-coral {
+        background-color: #fb7185;
+    }
+
+    .text-ink {
+        color: #1f2937;
+    }
+
+    .text-sand {
+        color: #f6f1e8;
+    }
+}
