@@ -1,0 +1,16 @@
+<% cell_id = "completion-#{habit.id}-#{date.iso8601}" %>
+<div id="<%= cell_id %>">
+  <%= button_to completions_path(habit_id: habit.id, completed_on: date, week_start: week_start),
+        class: "mx-auto w-8 h-8 rounded-md border-2 grid place-items-center transition-all cursor-pointer " +
+               (completed ?
+                 "bg-lcd border-lcd-dark text-lcd-bg shadow-[0_0_8px_rgba(155,188,15,0.5)]" :
+                 "bg-lcd-bg border-lcd-dark/50 text-lcd/20 hover:border-lcd/70 hover:text-lcd/50") do %>
+    <% if completed %>
+      <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+      </svg>
+    <% else %>
+      <span class="font-pixel text-[10px]">·</span>
+    <% end %>
+  <% end %>
+</div>

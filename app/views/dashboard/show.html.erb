@@ -1,0 +1,96 @@
+<%# ── Week navigation ── %>
+<div class="flex items-center justify-between mb-6">
+  <h1 class="font-pixel text-xl text-lcd-dark">WEEKLY GRID</h1>
+  <div class="flex items-center gap-2">
+    <%= link_to "◀", root_path(week_start: @week_start - 7), class: "font-pixel text-sm bg-shell hover:bg-shell-dark hover:text-cream border-2 border-shell-dark rounded px-3 py-1 transition" %>
+    <span class="font-pixel text-xs text-charcoal">
+      <%= @week_start.strftime("%-d %b") %> – <%= (@week_start + 6).strftime("%-d %b %Y") %>
+    </span>
+    <% if @week_start + 7 <= Date.current.beginning_of_week(:monday) %>
+      <%= link_to "▶", root_path(week_start: @week_start + 7), class: "font-pixel text-sm bg-shell hover:bg-shell-dark hover:text-cream border-2 border-shell-dark rounded px-3 py-1 transition" %>
+    <% else %>
+      <span class="font-pixel text-sm bg-shell/50 border-2 border-shell-dark/30 text-shell-dark/40 rounded px-3 py-1 cursor-not-allowed">▶</span>
+    <% end %>
+  </div>
+</div>
+
+<%# ── LCD screen: habit grid ── %>
+<div class="bg-lcd-bg rounded-2xl border-4 border-lcd-dark p-4 shadow-[inset_0_2px_8px_rgba(0,0,0,0.4)] overflow-x-auto">
+  <% if @habits.any? %>
+    <table class="w-full border-collapse">
+      <thead>
+        <tr>
+          <th class="font-pixel text-[10px] text-lcd/60 text-left pb-3 pr-4 min-w-[120px]">HABIT</th>
+          <% @week_dates.each do |date| %>
+            <th class="font-pixel text-[10px] text-lcd/60 text-center pb-3 w-14">
+              <span class="block"><%= date.strftime("%a").upcase %></span>
+              <span class="block text-lcd/40"><%= date.strftime("%-d") %></span>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @habits.each do |habit| %>
+          <tr class="border-t border-lcd-dark/40 align-top">
+            <td class="py-3 pr-4 max-w-[180px]">
+              <div class="flex items-start gap-2">
+                <span class="font-pixel text-xs text-lcd truncate"><%= habit.name %></span>
+                <details class="group">
+                  <summary class="list-none flex items-center gap-2">
+                    <span class="cursor-pointer font-pixel text-[10px] text-lcd/50 hover:text-lcd transition">EDIT</span>
+                    <%= button_to "DELETE", habit_path(habit), method: :delete, data: { confirm: "Are you sure?" },
+                          form: { class: "contents" },
+                          class: "cursor-pointer font-pixel text-[10px] text-cherry hover:text-lcd transition" %>
+                  </summary>
+                  <div class="mt-2">
+                    <%= form_with model: habit, class: "flex items-center gap-2" do |f| %>
+                      <%= f.text_field :name, value: habit.name,
+                            class: "bg-lcd-bg border-2 border-lcd-dark rounded px-2 py-1 font-pixel text-[10px] text-lcd placeholder:text-lcd/40 focus:outline-none focus:border-lcd-light w-32" %>
+                      <%= f.submit "SAVE",
+                            class: "font-pixel text-[10px] bg-lcd text-lcd-bg px-2 py-1 rounded border-2 border-lcd-dark hover:bg-lcd-light transition cursor-pointer" %>
+                    <% end %>
+                  </div>
+                </details>
+              </div>
+            </td>
+            <% @week_dates.each do |date| %>
+              <td class="text-center py-3">
+                <%= render "completion_cell", habit: habit, date: date, completed: @completion_map[[habit.id, date]], week_start: @week_start %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  <% else %>
+    <div class="text-center py-12">
+      <p class="font-pixel text-sm text-lcd/60 mb-4">NO HABITS YET</p>
+      <%= form_with model: Habit.new, class: "inline-flex items-center gap-2 justify-center" do |f| %>
+        <%= f.text_field :name, placeholder: "Name your first habit…", required: true,
+              class: "bg-lcd-bg border-2 border-lcd-dark rounded px-3 py-1.5 font-pixel text-xs text-lcd placeholder:text-lcd/40 focus:outline-none focus:border-lcd-light w-48" %>
+        <%= f.submit "+ ADD",
+              class: "font-pixel text-xs bg-lcd text-lcd-bg px-4 py-2 rounded border-2 border-lcd-dark hover:bg-lcd-light transition cursor-pointer" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<%# ── Inline add habit ── %>
+<div class="mt-4 flex justify-end">
+  <%= form_with model: Habit.new, class: "flex items-center gap-2" do |f| %>
+    <%= f.text_field :name, placeholder: "New habit…", required: true,
+          class: "bg-cream border-2 border-shell-dark rounded px-3 py-1.5 font-pixel text-xs text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:border-lcd-dark focus:ring-1 focus:ring-lcd-dark w-48" %>
+    <%= f.submit "+ ADD",
+          class: "font-pixel text-xs bg-shell hover:bg-shell-dark hover:text-cream border-2 border-shell-dark rounded px-4 py-1.5 transition cursor-pointer" %>
+  <% end %>
+</div>
+
+<%# ── Consistency chart ── %>
+<% if @habits.any? %>
+  <%= render "consistency_chart", chart_data: @chart_data %>
+
+  <% content_for :head do %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <% end %>
+<% end %>

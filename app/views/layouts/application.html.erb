@@ -11,61 +11,52 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,500;6..72,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-sand text-ink">
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div class="absolute -top-24 -right-28 h-72 w-72 rounded-full bg-sun/40 blur-3xl"></div>
-      <div class="absolute bottom-0 left-10 h-80 w-80 rounded-full bg-foam/50 blur-3xl"></div>
-      <div class="absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 rounded-full bg-coral/20 blur-[120px]"></div>
-    </div>
-
-    <header class="sticky top-0 z-10 border-b border-ink/10 bg-sand/80 backdrop-blur">
-      <div class="container mx-auto flex items-center justify-between px-6 py-4">
+  <body class="bg-cream text-charcoal min-h-screen flex flex-col">
+    <%# ── Shell top: rounded device frame ── %>
+    <header class="bg-shell border-b-4 border-shell-dark">
+      <div class="max-w-4xl mx-auto flex items-center justify-between px-6 py-3">
         <div class="flex items-center gap-3">
-          <div class="grid h-10 w-10 place-items-center rounded-xl bg-ink text-sand font-display text-lg">H</div>
-          <div>
-            <p class="font-display text-lg">Habit Tracker</p>
-            <p class="text-xs uppercase tracking-[0.3em] text-ink/50">daily rhythm</p>
+          <div class="w-10 h-10 rounded-lg bg-lcd-bg grid place-items-center">
+            <span class="font-pixel text-lcd text-lg leading-none">H</span>
           </div>
-        </div>
-        <nav class="hidden items-center gap-6 text-sm font-medium text-ink/70 md:flex">
-          <a class="transition hover:text-ink" href="#focus">Focus</a>
-          <a class="transition hover:text-ink" href="#flow">Flow</a>
-          <a class="transition hover:text-ink" href="#stories">Stories</a>
-          <a class="transition hover:text-ink" href="#start">Start</a>
-        </nav>
-        <div class="flex items-center gap-3">
-          <button class="rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold text-ink transition hover:border-ink/60">Sign in</button>
-          <button class="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-sand transition hover:-translate-y-0.5 hover:shadow-lg">Create profile</button>
+          <div>
+            <p class="font-pixel text-sm text-charcoal leading-none">HABIT TRACKER</p>
+            <p class="text-[10px] uppercase tracking-[0.35em] text-shell-dark mt-0.5">daily&nbsp;rhythm</p>
+          </div>
         </div>
       </div>
     </header>
 
-    <main class="container mx-auto px-6 pb-20 pt-16">
+    <%# ── Flash messages ── %>
+    <% if notice.present? %>
+      <div class="max-w-4xl mx-auto mt-4 px-6">
+        <div class="bg-lcd/30 border-2 border-lcd-dark rounded-lg px-4 py-2 font-pixel text-xs text-lcd-dark">
+          <%= notice %>
+        </div>
+      </div>
+    <% end %>
+
+    <%# ── LCD screen area ── %>
+    <main class="flex-1 max-w-4xl mx-auto w-full px-6 py-8">
       <%= yield %>
     </main>
 
-    <footer class="border-t border-ink/10 py-10">
-      <div class="container mx-auto flex flex-wrap items-center justify-between gap-4 px-6 text-sm text-ink/60">
-        <p>Habit Tracker, a calm home for better routines.</p>
-        <div class="flex items-center gap-4">
-          <a class="transition hover:text-ink" href="#">Privacy</a>
-          <a class="transition hover:text-ink" href="#">Terms</a>
-          <a class="transition hover:text-ink" href="#">Contact</a>
-        </div>
+    <%# ── Shell bottom ── %>
+    <footer class="bg-shell border-t-4 border-shell-dark mt-auto">
+      <div class="max-w-4xl mx-auto flex items-center justify-between px-6 py-3 text-[10px] uppercase tracking-widest text-shell-dark">
+        <span>&copy; <%= Date.current.year %> Habit Tracker</span>
+        <span class="font-pixel">Game &amp; Watch Edition</span>
       </div>
     </footer>
   </body>

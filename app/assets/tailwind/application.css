@@ -1,49 +1,34 @@
 @import "tailwindcss";
 
+@theme {
+    --color-lcd: #9bbc0f;
+    --color-lcd-light: #c4d946;
+    --color-lcd-dark: #306230;
+    --color-lcd-bg: #0f380f;
+    --color-shell: #c8b88a;
+    --color-shell-dark: #8b7e5a;
+    --color-shell-accent: #d4a04a;
+    --color-cherry: #e74c3c;
+    --color-cherry-light: #f5a0a0;
+    --color-gold: #d4a04a;
+    --color-cream: #f5f0e1;
+    --color-charcoal: #2c2c2c;
+
+    --font-pixel: "Silkscreen", "Courier New", monospace;
+    --font-body: "Space Grotesk", "Trebuchet MS", sans-serif;
+}
+
 @layer base {
     :root {
         color-scheme: light;
     }
 
     html {
-        font-family: "Space Grotesk", "Trebuchet MS", "Segoe UI", sans-serif;
+        font-family: var(--font-body);
     }
 
     body {
-        background-color: #f6f1e8;
-    }
-}
-
-@layer utilities {
-    .font-display {
-        font-family: "Newsreader", "Palatino", "Times New Roman", serif;
-    }
-
-    .bg-sand {
-        background-color: #f6f1e8;
-    }
-
-    .bg-ink {
-        background-color: #1f2937;
-    }
-
-    .bg-sun {
-        background-color: #fbbf24;
-    }
-
-    .bg-foam {
-        background-color: #a7f3d0;
-    }
-
-    .bg-coral {
-        background-color: #fb7185;
-    }
-
-    .text-ink {
-        color: #1f2937;
-    }
-
-    .text-sand {
-        color: #f6f1e8;
+        background-color: var(--color-cream);
+        color: var(--color-charcoal);
     }
 }

@@ -1,0 +1,68 @@
+<div id="consistency-chart">
+  <div class="mt-10">
+    <h2 class="font-pixel text-sm text-lcd-dark mb-4">CONSISTENCY (28 DAYS)</h2>
+    <div class="bg-lcd-bg rounded-2xl border-4 border-lcd-dark p-5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.4)]">
+      <canvas id="consistencyChart" class="w-full" height="200"></canvas>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var existing = Chart.getChart("consistencyChart");
+      if (existing) existing.destroy();
+
+      var ctx = document.getElementById("consistencyChart").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: <%= raw chart_data[:labels].to_json %>,
+          datasets: [{
+            label: "Completion %",
+            data: <%= raw chart_data[:values].to_json %>,
+            borderColor: "#9bbc0f",
+            backgroundColor: "rgba(155, 188, 15, 0.1)",
+            borderWidth: 2,
+            pointBackgroundColor: "#9bbc0f",
+            pointBorderColor: "#306230",
+            pointRadius: 3,
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              ticks: { color: "rgba(155,188,15,0.5)", font: { family: "Silkscreen", size: 9 }, maxRotation: 45 },
+              grid: { color: "rgba(155,188,15,0.1)" }
+            },
+            y: {
+              min: 0,
+              max: 100,
+              ticks: {
+                color: "rgba(155,188,15,0.5)",
+                font: { family: "Silkscreen", size: 9 },
+                callback: function(v) { return v + "%" }
+              },
+              grid: { color: "rgba(155,188,15,0.1)" }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: "#0f380f",
+              borderColor: "#306230",
+              borderWidth: 1,
+              titleFont: { family: "Silkscreen", size: 10 },
+              bodyFont: { family: "Silkscreen", size: 10 },
+              callbacks: {
+                label: function(ctx) { return ctx.parsed.y + "% complete" }
+              }
+            }
+          }
+        }
+      });
+    })();
+  </script>
+</div>
